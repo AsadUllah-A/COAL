@@ -1,34 +1,35 @@
+addNumbers macro var1, var2
+  
+    mov dl, var1  
+  
+    add dl, var2  
+    add dl,30h
+    
+    mov ah,2
+    int 21h
+    
+    
+     
+endm
+
 .model small
 .stack 100h
-.data
-msg DB "The sum of three digits is: $"  
-newline DB 13, 10, '$'          
-result DB ?                     
+
+.data 
+var1 db 3  
+var2 db 4      
 
 .code
-main proc
-    mov ax, @data
-    mov ds, ax
 
-    lea dx, msg                
-    mov ah, 9                  
-    int 21h                    
+main proc 
+    mov ax, @data     
+    mov ds, ax 
 
-    lea dx, newline            
-    mov ah, 9                  
-    int 21h                    
+    addNumbers var1, var2  
 
-    mov al, 3                  
-    add al, 3
-    add al, 2
-
-    add al, '0'                
-    mov dl, al                 
-    mov ah, 2                  
-    int 21h                    
-
-    mov ah, 4Ch                
-    int 21h                    
-
+    
+    mov ah, 4ch       
+    int 21h    
 main endp
+
 end main
